@@ -10,7 +10,9 @@ import {
   Instagram,
   Youtube,
   MessageCircle,
-  ChevronRight
+  ChevronRight,
+  Navigation,
+  ExternalLink
 } from "lucide-react";
 import Link from "next/link";
 
@@ -18,7 +20,7 @@ const quickLinks = [
   { label: "Trang Chủ", href: "/" },
   { label: "Đặt Sân", href: "#pricing" },
   { label: "Bảng Giá", href: "#pricing" },
-  { label: "Liên Hệ", href: "#contact" },
+  { label: "Tiện Ích", href: "#amenities" },
 ];
 
 const policyLinks = [
@@ -29,32 +31,42 @@ const policyLinks = [
 ];
 
 const socialLinks = [
-  { icon: Facebook, href: "https://facebook.com/smashzone", label: "Facebook" },
-  { icon: Instagram, href: "https://instagram.com/smashzone", label: "Instagram" },
-  { icon: Youtube, href: "https://youtube.com/smashzone", label: "Youtube" },
-  { icon: MessageCircle, href: "https://zalo.me/smashzone", label: "Zalo" },
+  { icon: Facebook, href: "https://facebook.com/smashzone", label: "Facebook", color: "hover:text-blue-500" },
+  { icon: Instagram, href: "https://instagram.com/smashzone", label: "Instagram", color: "hover:text-pink-500" },
+  { icon: Youtube, href: "https://youtube.com/smashzone", label: "Youtube", color: "hover:text-red-500" },
+  { icon: MessageCircle, href: "https://zalo.me/0901234567", label: "Zalo", color: "hover:text-blue-400" },
 ];
 
 const contactInfo = [
   {
     icon: MapPin,
     label: "Địa chỉ",
-    value: "123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh",
+    value: "123 Đường Nguyễn Văn Linh, Quận 7, TP. Hồ Chí Minh",
+    action: "https://maps.google.com",
   },
   {
     icon: Phone,
     label: "Hotline",
     value: "1900 xxxx xx",
+    action: "tel:1900xxxxxx",
+  },
+  {
+    icon: MessageCircle,
+    label: "Zalo",
+    value: "0901 234 567",
+    action: "https://zalo.me/0901234567",
   },
   {
     icon: Mail,
     label: "Email",
     value: "contact@smashzone.vn",
+    action: "mailto:contact@smashzone.vn",
   },
   {
     icon: Clock,
     label: "Giờ mở cửa",
     value: "06:00 - 22:00 (Hàng ngày)",
+    action: null,
   },
 ];
 
@@ -62,7 +74,7 @@ export function Footer() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative bg-dark-gray overflow-hidden">
+    <footer id="contact" className="relative bg-dark-gray overflow-hidden">
       {/* Top divider */}
       <div className="h-px bg-gradient-to-r from-transparent via-neon/30 to-transparent" />
       
@@ -71,6 +83,82 @@ export function Footer() {
       <div className="absolute top-0 right-0 w-72 h-72 bg-teal/10 rounded-full blur-[120px]" />
 
       <div className="relative z-10">
+        {/* Map section - Enhanced */}
+        <div className="border-b border-white/10">
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <motion.div
+              className="text-center mb-8"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              <h3 className="text-2xl font-bold text-white mb-2">Tìm Đường Đến SmashZone</h3>
+              <p className="text-muted-foreground">Dễ dàng di chuyển, bãi đỗ xe miễn phí</p>
+            </motion.div>
+
+            <motion.div
+              className="relative w-full h-64 md:h-80 rounded-2xl overflow-hidden"
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Map placeholder with gradient */}
+              <div className="absolute inset-0 bg-gradient-to-br from-teal/20 via-dark to-neon/10">
+                {/* Grid pattern */}
+                <div 
+                  className="absolute inset-0 opacity-20"
+                  style={{
+                    backgroundImage: `
+                      linear-gradient(rgba(118, 215, 19, 0.3) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(118, 215, 19, 0.3) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px',
+                  }}
+                />
+                
+                {/* Center content */}
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  {/* Animated pin */}
+                  <motion.div
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <div className="relative">
+                      <div className="w-16 h-16 rounded-full bg-neon/20 flex items-center justify-center">
+                        <MapPin className="w-8 h-8 text-neon" />
+                      </div>
+                      {/* Pulse effect */}
+                      <div className="absolute inset-0 rounded-full bg-neon/20 animate-ping" />
+                    </div>
+                  </motion.div>
+                  
+                  <div className="mt-6 text-center">
+                    <p className="text-white font-semibold mb-1">SmashZone Pickleball</p>
+                    <p className="text-sm text-muted-foreground mb-4">
+                      123 Đường Nguyễn Văn Linh, Quận 7
+                    </p>
+                    <a
+                      href="https://maps.google.com/?q=SmashZone+Pickleball"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-neon text-black font-semibold rounded-lg hover:bg-neon/90 transition-colors"
+                    >
+                      <Navigation className="w-4 h-4" />
+                      Mở Google Maps
+                      <ExternalLink className="w-3 h-3" />
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Border */}
+              <div className="absolute inset-0 rounded-2xl border border-white/10" />
+            </motion.div>
+          </div>
+        </div>
+
         {/* Main footer content */}
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
@@ -113,7 +201,7 @@ export function Footer() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-muted-foreground hover:text-neon hover:border-neon/50 hover:bg-neon/10 transition-all duration-300"
+                    className={`w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-muted-foreground ${social.color} hover:border-current transition-all duration-300`}
                     aria-label={social.label}
                   >
                     <social.icon className="w-5 h-5" />
@@ -175,49 +263,53 @@ export function Footer() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
             >
-              <h4 className="text-lg font-bold text-white mb-6">Liên Hệ</h4>
+              <h4 className="text-lg font-bold text-white mb-6">Liên Hệ Ngay</h4>
               <ul className="space-y-4">
                 {contactInfo.map((info, index) => (
-                  <li key={index} className="flex items-start gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-neon/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <info.icon className="w-4 h-4 text-neon" />
-                    </div>
-                    <div>
-                      <p className="text-xs text-muted-foreground mb-0.5">{info.label}</p>
-                      <p className="text-sm text-white">{info.value}</p>
-                    </div>
+                  <li key={index}>
+                    {info.action ? (
+                      <a
+                        href={info.action}
+                        target={info.action.startsWith("http") ? "_blank" : undefined}
+                        rel={info.action.startsWith("http") ? "noopener noreferrer" : undefined}
+                        className="flex items-start gap-3 group hover:bg-white/5 p-2 -m-2 rounded-lg transition-colors"
+                      >
+                        <div className="w-8 h-8 rounded-lg bg-neon/10 group-hover:bg-neon/20 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors">
+                          <info.icon className="w-4 h-4 text-neon" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-0.5">{info.label}</p>
+                          <p className="text-sm text-white group-hover:text-neon transition-colors">{info.value}</p>
+                        </div>
+                      </a>
+                    ) : (
+                      <div className="flex items-start gap-3 p-2 -m-2">
+                        <div className="w-8 h-8 rounded-lg bg-neon/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <info.icon className="w-4 h-4 text-neon" />
+                        </div>
+                        <div>
+                          <p className="text-xs text-muted-foreground mb-0.5">{info.label}</p>
+                          <p className="text-sm text-white">{info.value}</p>
+                        </div>
+                      </div>
+                    )}
                   </li>
                 ))}
               </ul>
-            </motion.div>
-          </div>
-        </div>
 
-        {/* Map placeholder */}
-        <div className="border-t border-white/10">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div className="relative w-full h-48 md:h-64 rounded-2xl overflow-hidden bg-dark border border-white/10">
-              {/* Map placeholder */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center">
-                  <MapPin className="w-12 h-12 text-neon/40 mx-auto mb-3" />
-                  <p className="text-muted-foreground text-sm">Google Map Placeholder</p>
-                  <p className="text-xs text-muted-foreground mt-1">123 Đường ABC, Quận XYZ, TP.HCM</p>
-                </div>
+              {/* Quick contact CTA */}
+              <div className="mt-6 pt-6 border-t border-white/10">
+                <a
+                  href="https://zalo.me/0901234567"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-2 w-full py-3 bg-blue-500/10 hover:bg-blue-500/20 border border-blue-500/30 text-blue-400 font-semibold rounded-xl transition-colors"
+                >
+                  <MessageCircle className="w-5 h-5" />
+                  Chat Zalo Ngay
+                </a>
               </div>
-              
-              {/* Grid overlay */}
-              <div 
-                className="absolute inset-0 opacity-10"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(rgba(118, 215, 19, 0.3) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(118, 215, 19, 0.3) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '30px 30px',
-                }}
-              />
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -235,6 +327,9 @@ export function Footer() {
           </div>
         </div>
       </div>
+
+      {/* Bottom padding for mobile CTA */}
+      <div className="h-20 md:h-0" />
     </footer>
   );
 }
