@@ -1,0 +1,1480 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>SmashZone - Sân Chơi Pickleball Trong Nhà Đẳng Cấp</title>
+    <meta
+      name="description"
+      content="SmashZone - Sân Pickleball trong nhà chuẩn thi đấu. Thỏa mãn đam mê bất kể nắng mưa. Đặt sân ngay!"
+    />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --neon: #76d713;
+        --cyan: #00e5ff;
+        --teal: #004d40;
+        --dark: #0f0f0f;
+        --dark-gray: #1a1a1a;
+        --dark-card: #1e1e1e;
+        --text: #ffffff;
+        --muted: rgba(229, 229, 229, 0.85);
+        --border: rgba(255, 255, 255, 0.12);
+        --radius: 16px;
+        --shadow-neon: 0 0 10px rgba(118, 215, 19, 0.35),
+          0 0 22px rgba(118, 215, 19, 0.18);
+        --shadow-cyan: 0 0 10px rgba(0, 229, 255, 0.35),
+          0 0 22px rgba(0, 229, 255, 0.18);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Montserrat", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+        background: var(--dark);
+        color: var(--text);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 14px;
+        border-radius: 999px;
+        border: 1px solid rgba(118, 215, 19, 0.3);
+        background: rgba(118, 215, 19, 0.1);
+        color: var(--neon);
+        font-weight: 600;
+        font-size: 13px;
+        letter-spacing: 0.2px;
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--neon);
+        box-shadow: 0 0 12px rgba(118, 215, 19, 0.9);
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.9;
+        }
+        50% {
+          transform: scale(1.25);
+          opacity: 1;
+        }
+      }
+
+      .grad-text {
+        background: linear-gradient(90deg, var(--neon), var(--cyan), var(--neon));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        border-radius: 14px;
+        padding: 14px 18px;
+        font-weight: 800;
+        border: 1px solid transparent;
+        cursor: pointer;
+        user-select: none;
+        transition: transform 180ms ease, box-shadow 180ms ease, background 180ms ease,
+          border-color 180ms ease, color 180ms ease;
+        text-align: center;
+        white-space: nowrap;
+      }
+
+      .btn:active {
+        transform: translateY(1px);
+      }
+
+      .btn-primary {
+        background: var(--neon);
+        color: #000;
+        box-shadow: var(--shadow-neon);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 12px rgba(118, 215, 19, 0.55), 0 0 28px rgba(118, 215, 19, 0.25);
+      }
+
+      .btn-outline {
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.3);
+        color: #fff;
+      }
+
+      .btn-outline:hover {
+        border-color: rgba(255, 255, 255, 0.7);
+        background: rgba(255, 255, 255, 0.06);
+      }
+
+      .section {
+        position: relative;
+        padding: 84px 0;
+      }
+
+      .section--alt {
+        background: var(--dark-gray);
+      }
+
+      .section-title {
+        font-size: clamp(28px, 3.2vw, 52px);
+        font-weight: 900;
+        margin: 0 0 14px;
+        line-height: 1.1;
+      }
+
+      .section-desc {
+        margin: 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.7;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 50;
+        transition: background 200ms ease, border-color 200ms ease, padding 200ms ease;
+        padding: 18px 0;
+        background: transparent;
+      }
+
+      .header.is-scrolled {
+        background: rgba(15, 15, 15, 0.9);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        padding: 12px 0;
+      }
+
+      .header-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .brand-badge {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--neon), var(--cyan));
+        color: #000;
+      }
+
+      .brand-name {
+        font-size: 18px;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+
+      .nav {
+        display: none;
+        align-items: center;
+        gap: 24px;
+      }
+
+      .nav a {
+        color: rgba(255, 255, 255, 0.8);
+        font-weight: 600;
+        font-size: 13px;
+        position: relative;
+        padding: 8px 0;
+        transition: color 180ms ease;
+      }
+
+      .nav a:hover {
+        color: var(--neon);
+      }
+
+      .nav a::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 3px;
+        height: 2px;
+        width: 0;
+        background: var(--neon);
+        transition: width 200ms ease;
+      }
+
+      .nav a:hover::after {
+        width: 100%;
+      }
+
+      .header-cta {
+        display: none;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .hotline {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.82);
+      }
+
+      .hotline:hover {
+        color: var(--cyan);
+      }
+
+      .icon {
+        width: 16px;
+        height: 16px;
+        display: inline-block;
+      }
+
+      .menu-btn {
+        width: 42px;
+        height: 42px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        color: #fff;
+        display: grid;
+        place-items: center;
+      }
+
+      /* Mobile menu */
+      .mobile-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 49;
+        background: rgba(0, 0, 0, 0.7);
+        backdrop-filter: blur(8px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 180ms ease;
+      }
+
+      .mobile-overlay.is-open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .mobile-drawer {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100%;
+        width: min(360px, 92vw);
+        background: var(--dark-gray);
+        border-left: 1px solid rgba(255, 255, 255, 0.12);
+        transform: translateX(102%);
+        transition: transform 220ms ease;
+        z-index: 50;
+        padding: 84px 20px 20px;
+      }
+
+      .mobile-drawer.is-open {
+        transform: translateX(0);
+      }
+
+      .mobile-nav {
+        display: grid;
+        gap: 10px;
+        margin-bottom: 22px;
+      }
+
+      .mobile-nav a {
+        font-size: 16px;
+        font-weight: 800;
+        padding: 12px 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.9);
+      }
+
+      .mobile-meta {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 18px;
+      }
+
+      .mobile-meta .card {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px;
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      /* Hero */
+      .hero {
+        min-height: 100vh;
+        padding: 112px 0 60px;
+        background: linear-gradient(135deg, var(--dark) 0%, var(--dark-gray) 55%, rgba(0, 77, 64, 0.45) 100%);
+        overflow: hidden;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.08;
+        background-image: linear-gradient(rgba(118, 215, 19, 0.3) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(118, 215, 19, 0.3) 1px, transparent 1px);
+        background-size: 52px 52px;
+        pointer-events: none;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 820px;
+        height: 820px;
+        transform: translate(-50%, -50%);
+        background: rgba(118, 215, 19, 0.06);
+        filter: blur(100px);
+        border-radius: 50%;
+        pointer-events: none;
+      }
+
+      .hero-inner {
+        position: relative;
+        z-index: 2;
+        text-align: center;
+      }
+
+      .hero h1 {
+        margin: 16px 0 14px;
+        font-weight: 900;
+        line-height: 1.02;
+        letter-spacing: -0.6px;
+        font-size: clamp(40px, 5vw, 78px);
+      }
+
+      .hero .sub {
+        margin: 0 auto 22px;
+        max-width: 760px;
+        color: rgba(229, 229, 229, 0.86);
+        font-size: clamp(16px, 2.1vw, 22px);
+        line-height: 1.7;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+        justify-content: center;
+        max-width: 520px;
+        margin: 24px auto 0;
+      }
+
+      .stats {
+        margin-top: 42px;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+
+      .stat {
+        padding: 14px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: left;
+      }
+
+      .stat .v {
+        font-size: 24px;
+        font-weight: 900;
+        color: var(--neon);
+      }
+
+      .stat .l {
+        margin-top: 4px;
+        font-size: 12px;
+        color: rgba(229, 229, 229, 0.76);
+        font-weight: 600;
+      }
+
+      .scroll-indicator {
+        position: absolute;
+        left: 50%;
+        bottom: 26px;
+        transform: translateX(-50%);
+        z-index: 3;
+        opacity: 0.9;
+      }
+
+      .mouse {
+        width: 22px;
+        height: 38px;
+        border-radius: 999px;
+        border: 2px solid rgba(255, 255, 255, 0.28);
+        padding: 7px 0;
+        display: grid;
+        place-items: start center;
+      }
+
+      .mouse span {
+        width: 4px;
+        height: 7px;
+        border-radius: 999px;
+        background: var(--neon);
+        animation: bounce 1.5s ease-in-out infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+          opacity: 0.9;
+        }
+        50% {
+          transform: translateY(10px);
+          opacity: 1;
+        }
+      }
+
+      /* Cards */
+      .grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .card {
+        position: relative;
+        border-radius: 18px;
+        background: rgba(30, 30, 30, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        transition: transform 180ms ease, border-color 180ms ease;
+      }
+
+      .card:hover {
+        transform: translateY(-2px);
+        border-color: rgba(118, 215, 19, 0.5);
+      }
+
+      .card-inner {
+        padding: 20px;
+        position: relative;
+        z-index: 2;
+      }
+
+      .card-glow {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 240ms ease;
+        background: linear-gradient(135deg, rgba(118, 215, 19, 0.13), transparent 55%);
+      }
+
+      .card:hover .card-glow {
+        opacity: 1;
+      }
+
+      .icon-box {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        margin-bottom: 14px;
+        background: rgba(118, 215, 19, 0.12);
+        border: 1px solid rgba(118, 215, 19, 0.25);
+      }
+
+      .card h3 {
+        margin: 0 0 8px;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .card p {
+        margin: 0;
+        color: rgba(229, 229, 229, 0.85);
+        line-height: 1.65;
+        font-size: 14px;
+      }
+
+      /* How it works */
+      .steps {
+        display: grid;
+        gap: 16px;
+      }
+
+      .step {
+        border-radius: 18px;
+        background: rgba(26, 26, 26, 0.65);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 18px;
+      }
+
+      .step-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(118, 215, 19, 0.16);
+        color: var(--neon);
+        font-weight: 900;
+        font-size: 12px;
+      }
+
+      .step h3 {
+        margin: 10px 0 6px;
+        font-size: 18px;
+        font-weight: 900;
+      }
+
+      .step .en {
+        color: var(--cyan);
+        font-weight: 700;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      /* Gallery */
+      .gallery {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 12px;
+      }
+
+      .tile {
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: linear-gradient(135deg, var(--dark) 0%, rgba(0, 77, 64, 0.35) 100%);
+        position: relative;
+        aspect-ratio: 1 / 1;
+        cursor: default;
+      }
+
+      .tile--tall {
+        aspect-ratio: 3 / 4;
+      }
+
+      .tile--wide {
+        aspect-ratio: 16 / 9;
+        grid-column: span 2;
+      }
+
+      .tile::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.1;
+        background-image: linear-gradient(rgba(118, 215, 19, 0.35) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(118, 215, 19, 0.35) 1px, transparent 1px);
+        background-size: 22px 22px;
+      }
+
+      .tile-content {
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        padding: 16px;
+        text-align: center;
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .tile-content strong {
+        display: block;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 900;
+        margin-bottom: 6px;
+      }
+
+      /* Pricing */
+      .pricing {
+        display: grid;
+        gap: 16px;
+      }
+
+      .price-card {
+        border-radius: 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(30, 30, 30, 0.6);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .price-card.featured {
+        border-color: rgba(118, 215, 19, 0.55);
+        box-shadow: 0 0 24px rgba(118, 215, 19, 0.18);
+        background: linear-gradient(180deg, rgba(118, 215, 19, 0.11), rgba(30, 30, 30, 0.8));
+      }
+
+      .price-header {
+        padding: 22px 20px 0;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 900;
+        font-size: 12px;
+        background: linear-gradient(90deg, var(--neon), var(--cyan));
+        color: #000;
+      }
+
+      .price-title {
+        margin: 12px 0 4px;
+        font-size: 20px;
+        font-weight: 900;
+      }
+
+      .price-sub {
+        margin: 0;
+        font-size: 12px;
+        color: var(--cyan);
+        font-weight: 700;
+      }
+
+      .price-desc {
+        margin: 10px 0 0;
+        font-size: 13px;
+        color: rgba(229, 229, 229, 0.85);
+        line-height: 1.6;
+      }
+
+      .price-body {
+        padding: 16px 20px 20px;
+      }
+
+      .price {
+        font-size: 36px;
+        font-weight: 900;
+        color: #fff;
+        letter-spacing: -0.6px;
+      }
+
+      .price.featured {
+        color: var(--neon);
+      }
+
+      .unit {
+        color: rgba(229, 229, 229, 0.78);
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      .slot {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin: 14px 0 16px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: rgba(229, 229, 229, 0.85);
+        font-weight: 700;
+        font-size: 13px;
+      }
+
+      .slot.featured {
+        background: rgba(118, 215, 19, 0.1);
+        border-color: rgba(118, 215, 19, 0.25);
+        color: var(--neon);
+      }
+
+      .features {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 16px;
+        display: grid;
+        gap: 10px;
+      }
+
+      .features li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: rgba(229, 229, 229, 0.85);
+        font-size: 13px;
+        line-height: 1.5;
+      }
+
+      .check {
+        width: 18px;
+        height: 18px;
+        border-radius: 999px;
+        display: grid;
+        place-items: center;
+        background: rgba(0, 229, 255, 0.12);
+        border: 1px solid rgba(0, 229, 255, 0.22);
+        flex: 0 0 auto;
+        margin-top: 1px;
+      }
+
+      .check.featured {
+        background: rgba(118, 215, 19, 0.12);
+        border-color: rgba(118, 215, 19, 0.22);
+      }
+
+      /* Footer */
+      .footer {
+        background: var(--dark-gray);
+        padding: 58px 0 0;
+        border-top: 1px solid rgba(118, 215, 19, 0.22);
+      }
+
+      .footer-grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      .footer h4 {
+        margin: 0 0 12px;
+        font-size: 16px;
+        font-weight: 900;
+      }
+
+      .footer p,
+      .footer li,
+      .footer a {
+        color: rgba(229, 229, 229, 0.82);
+        font-size: 13px;
+        line-height: 1.65;
+      }
+
+      .footer ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 10px;
+      }
+
+      .footer a:hover {
+        color: var(--neon);
+      }
+
+      .map {
+        margin-top: 26px;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 22px 0;
+      }
+
+      .map-box {
+        border-radius: 18px;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        background: var(--dark);
+        height: 220px;
+        display: grid;
+        place-items: center;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .map-box::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        opacity: 0.12;
+        background-image: linear-gradient(rgba(118, 215, 19, 0.25) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(118, 215, 19, 0.25) 1px, transparent 1px);
+        background-size: 30px 30px;
+      }
+
+      .map-box .map-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+      }
+
+      .bottom-bar {
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 14px 0 18px;
+      }
+
+      .bottom-row {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+        justify-content: space-between;
+        text-align: center;
+      }
+
+      /* Mobile sticky CTA */
+      .sticky-cta {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 60;
+        display: none;
+        padding: 14px 14px;
+        background: rgba(15, 15, 15, 0.92);
+        border-top: 1px solid rgba(118, 215, 19, 0.22);
+        backdrop-filter: blur(10px);
+      }
+
+      .sticky-row {
+        display: flex;
+        gap: 10px;
+      }
+
+      .sticky-row .btn {
+        flex: 1 1 0;
+        padding: 14px 12px;
+        border-radius: 14px;
+      }
+
+      /* Responsive */
+      @media (min-width: 768px) {
+        .nav {
+          display: flex;
+        }
+        .header-cta {
+          display: flex;
+        }
+        .menu-btn {
+          display: none;
+        }
+        .hero-actions {
+          flex-direction: row;
+          align-items: center;
+          max-width: none;
+        }
+        .stats {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+        .grid-3 {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .steps {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+        .gallery {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+          gap: 16px;
+        }
+        .tile--wide {
+          grid-column: span 2;
+        }
+        .pricing {
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          align-items: stretch;
+        }
+        .price-card.featured {
+          transform: translateY(-8px);
+        }
+        .footer-grid {
+          grid-template-columns: 1.2fr 1fr 1fr 1.2fr;
+          gap: 26px;
+        }
+        .bottom-row {
+          flex-direction: row;
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 767px) {
+        .sticky-cta {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header" id="top">
+      <div class="container">
+        <div class="header-row">
+          <a class="brand" href="#top" aria-label="SmashZone">
+            <span class="brand-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" class="icon" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="8" cy="9" r="1.5" fill="currentColor"></circle>
+                <circle cx="16" cy="9" r="1.5" fill="currentColor"></circle>
+                <circle cx="12" cy="15" r="1.5" fill="currentColor"></circle>
+              </svg>
+            </span>
+            <span class="brand-name">SmashZone</span>
+          </a>
+
+          <nav class="nav" aria-label="Primary">
+            <a href="/">Trang Chủ</a>
+            <a href="#about">Giới Thiệu</a>
+            <a href="#pricing">Bảng Giá</a>
+            <a href="#contact">Liên Hệ</a>
+          </nav>
+
+          <div class="header-cta">
+            <a class="hotline" href="tel:1900xxxxxx">
+              <svg viewBox="0 0 24 24" class="icon" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.09a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92z"
+                />
+              </svg>
+              <span>1900 xxxx xx</span>
+            </a>
+            <a class="btn btn-primary" href="#pricing">Đặt Sân</a>
+          </div>
+
+          <button class="menu-btn" id="menuBtn" aria-label="Mở menu">
+            <svg id="menuIcon" viewBox="0 0 24 24" class="icon" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Mobile menu -->
+    <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true"></div>
+    <aside class="mobile-drawer" id="mobileDrawer" aria-label="Mobile menu">
+      <nav class="mobile-nav">
+        <a href="/" data-close>Trang Chủ</a>
+        <a href="#about" data-close>Giới Thiệu</a>
+        <a href="#pricing" data-close>Bảng Giá</a>
+        <a href="#contact" data-close>Liên Hệ</a>
+      </nav>
+
+      <div class="mobile-meta">
+        <a class="card" href="tel:1900xxxxxx" data-close>
+          <span class="icon-box" style="width: 44px; height: 44px; border-radius: 14px; background: rgba(0, 229, 255, 0.12); border-color: rgba(0, 229, 255, 0.22);">
+            <svg viewBox="0 0 24 24" class="icon" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.86 19.86 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.86 19.86 0 0 1 2.08 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.86.31 1.7.57 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.09a2 2 0 0 1 2.11-.45c.8.26 1.64.45 2.5.57A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+          </span>
+          <div>
+            <div style="font-size: 11px; color: rgba(229, 229, 229, 0.68); font-weight: 700;">Hotline</div>
+            <div style="font-weight: 900;">1900 xxxx xx</div>
+          </div>
+        </a>
+      </div>
+
+      <a class="btn btn-primary" href="#pricing" data-close style="width: 100%; padding: 16px 16px;">
+        Đặt Sân Ngay
+      </a>
+    </aside>
+
+    <!-- Hero -->
+    <main>
+      <section class="hero section">
+        <div class="container hero-inner">
+          <span class="pill"><span class="dot" aria-hidden="true"></span>Premium Indoor Court</span>
+
+          <h1>
+            <span style="display: block;">SmashZone</span>
+            <span class="grad-text" style="display: block; margin-top: 10px; font-size: clamp(22px, 3.2vw, 52px); font-weight: 800;">
+              Sân Chơi Pickleball Trong Nhà Đẳng Cấp
+            </span>
+          </h1>
+
+          <p class="sub">
+            Thỏa mãn đam mê bất kể nắng mưa.
+            <span style="color: #fff; font-weight: 700;"> Sân chuẩn thi đấu</span>,
+            <span style="color: var(--cyan); font-weight: 700;"> cộng đồng sôi động</span>.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#pricing">Đặt Sân Ngay</a>
+            <a class="btn btn-outline" href="#about">Tìm Hiểu Thêm</a>
+          </div>
+
+          <div class="stats" aria-label="SmashZone stats">
+            <div class="stat">
+              <div class="v">4+</div>
+              <div class="l">Sân Tiêu Chuẩn</div>
+            </div>
+            <div class="stat">
+              <div class="v">500+</div>
+              <div class="l">Người Chơi</div>
+            </div>
+            <div class="stat">
+              <div class="v">24/7</div>
+              <div class="l">Mát Lạnh</div>
+            </div>
+            <div class="stat">
+              <div class="v">100%</div>
+              <div class="l">Hài Lòng</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-indicator" aria-hidden="true">
+          <div class="mouse"><span></span></div>
+        </div>
+      </section>
+
+      <!-- USP / About -->
+      <section class="section section--alt" id="about">
+        <div class="container">
+          <div style="text-align: center; max-width: 760px; margin: 0 auto 34px;">
+            <span class="pill" style="border-color: rgba(118, 215, 19, 0.3); background: rgba(118, 215, 19, 0.1);">
+              Tại Sao Chọn SmashZone?
+            </span>
+            <h2 class="section-title" style="margin-top: 14px;">
+              Trải Nghiệm <span class="grad-text">Đẳng Cấp</span>
+            </h2>
+            <p class="section-desc">
+              SmashZone mang đến không gian chơi Pickleball tốt nhất với đầy đủ tiện nghi hiện đại,
+              đội ngũ chuyên nghiệp và cộng đồng năng động.
+            </p>
+          </div>
+
+          <div class="grid grid-3">
+            <article class="card">
+              <div class="card-glow"></div>
+              <div class="card-inner">
+                <div class="icon-box" aria-hidden="true">❄️</div>
+                <h3>Mát Lạnh 24/7</h3>
+                <p>Hệ thống điều hòa hiện đại, nhiệt độ thoải mái quanh năm bất kể thời tiết.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-glow"></div>
+              <div class="card-inner">
+                <div class="icon-box" aria-hidden="true">🧱</div>
+                <h3>Sàn Chuẩn Thi Đấu</h3>
+                <p>Mặt sàn chất lượng cao, đạt tiêu chuẩn quốc tế, giảm chấn thương hiệu quả.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-glow"></div>
+              <div class="card-inner">
+                <div class="icon-box" aria-hidden="true">👥</div>
+                <h3>Cộng Đồng Sôi Động</h3>
+                <p>Kết nối với hàng trăm người chơi, giao lưu và tham gia các giải đấu hấp dẫn.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-glow"></div>
+              <div class="card-inner">
+                <div class="icon-box" aria-hidden="true">🚗</div>
+                <h3>Đỗ Xe Tiện Lợi</h3>
+                <p>Bãi đỗ xe rộng rãi, miễn phí cho khách đặt sân, an ninh 24/7.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-glow"></div>
+              <div class="card-inner">
+                <div class="icon-box" aria-hidden="true">🛡️</div>
+                <h3>An Toàn &amp; Chuyên Nghiệp</h3>
+                <p>Trang thiết bị hiện đại, đội ngũ hỗ trợ chuyên nghiệp, không gian sạch sẽ.</p>
+              </div>
+            </article>
+            <article class="card">
+              <div class="card-glow"></div>
+              <div class="card-inner">
+                <div class="icon-box" aria-hidden="true">⏰</div>
+                <h3>Linh Hoạt Giờ Chơi</h3>
+                <p>Mở cửa từ sáng đến tối muộn, đặt sân dễ dàng qua app hoặc hotline.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- How it works -->
+      <section class="section">
+        <div class="container">
+          <div style="text-align: center; max-width: 760px; margin: 0 auto 34px;">
+            <span class="pill" style="border-color: rgba(0, 229, 255, 0.3); background: rgba(0, 229, 255, 0.1); color: var(--cyan);">
+              Quy Trình Đặt Sân
+            </span>
+            <h2 class="section-title" style="margin-top: 14px;">
+              Chỉ <span class="grad-text" style="background: linear-gradient(90deg, var(--cyan), var(--neon));">3 Bước</span> Đơn Giản
+            </h2>
+            <p class="section-desc">
+              Đặt sân nhanh chóng, không cần chờ đợi. Trải nghiệm liền mạch từ online đến offline.
+            </p>
+          </div>
+
+          <div class="steps">
+            <div class="step">
+              <span class="step-badge">Bước 01</span>
+              <h3>Đặt Lịch Online</h3>
+              <div class="en">Book Online</div>
+              <p>Chọn ngày, giờ và sân phù hợp qua website hoặc app. Thanh toán nhanh chóng, tiện lợi.</p>
+            </div>
+            <div class="step">
+              <span class="step-badge">Bước 02</span>
+              <h3>Đến Đúng Giờ</h3>
+              <div class="en">Arrive on Time</div>
+              <p>Check-in tại quầy lễ tân, nhận dụng cụ (nếu cần) và sẵn sàng cho trận đấu.</p>
+            </div>
+            <div class="step">
+              <span class="step-badge">Bước 03</span>
+              <h3>Ra Sân Thi Đấu</h3>
+              <div class="en">Play &amp; Smash!</div>
+              <p>Tận hưởng trận đấu hết mình trên sân chuẩn quốc tế. Kết nối, vui vẻ và chiến thắng!</p>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 24px;">
+            <a class="btn btn-primary" href="#pricing">Đặt Sân Ngay</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Gallery -->
+      <section class="section section--alt">
+        <div class="container">
+          <div style="text-align: center; max-width: 760px; margin: 0 auto 34px;">
+            <span class="pill">Vibe Check</span>
+            <h2 class="section-title" style="margin-top: 14px;">
+              Năng Lượng <span class="grad-text">SmashZone</span>
+            </h2>
+            <p class="section-desc">
+              Khám phá không khí sôi động và những khoảnh khắc đáng nhớ tại SmashZone
+            </p>
+          </div>
+
+          <div class="gallery" aria-label="Gallery placeholders">
+            <div class="tile tile--tall">
+              <div class="tile-content">
+                <div>
+                  <strong>Không khí sôi động</strong>
+                  <div>Players high-fiving after a great match</div>
+                </div>
+              </div>
+            </div>
+            <div class="tile tile--wide">
+              <div class="tile-content">
+                <div>
+                  <strong>Sân chuẩn thi đấu</strong>
+                  <div>Professional indoor pickleball court</div>
+                </div>
+              </div>
+            </div>
+            <div class="tile">
+              <div class="tile-content">
+                <div>
+                  <strong>Khoảnh khắc chiến thắng</strong>
+                  <div>Player celebrating a winning shot</div>
+                </div>
+              </div>
+            </div>
+            <div class="tile">
+              <div class="tile-content">
+                <div>
+                  <strong>Giải đấu hấp dẫn</strong>
+                  <div>Tournament match in progress</div>
+                </div>
+              </div>
+            </div>
+            <div class="tile tile--tall">
+              <div class="tile-content">
+                <div>
+                  <strong>Kết nối bạn bè</strong>
+                  <div>Group of friends playing together</div>
+                </div>
+              </div>
+            </div>
+            <div class="tile tile--wide">
+              <div class="tile-content">
+                <div>
+                  <strong>Trang thiết bị hiện đại</strong>
+                  <div>Modern equipment and facilities</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 22px;">
+            <span class="btn btn-outline" style="cursor: default;">Xem Thêm Hình Ảnh</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="section" id="pricing">
+        <div class="container">
+          <div style="text-align: center; max-width: 760px; margin: 0 auto 34px;">
+            <span class="pill">Bảng Giá</span>
+            <h2 class="section-title" style="margin-top: 14px;">
+              Lựa Chọn <span class="grad-text">Phù Hợp</span>
+            </h2>
+            <p class="section-desc">
+              Đa dạng gói dịch vụ, giá cả minh bạch. Chọn gói phù hợp với nhu cầu của bạn.
+            </p>
+          </div>
+
+          <div class="pricing">
+            <article class="price-card">
+              <div class="price-header">
+                <div class="price-title">Giờ Vàng</div>
+                <p class="price-sub">Peak Hours</p>
+                <p class="price-desc">Khung giờ cao điểm với không khí sôi động nhất</p>
+              </div>
+              <div class="price-body">
+                <div class="price">200,000</div>
+                <div class="unit">VNĐ/giờ</div>
+                <div class="slot">🕒 17:00 - 21:00</div>
+                <ul class="features">
+                  <li><span class="check">✓</span> Sân chuẩn thi đấu</li>
+                  <li><span class="check">✓</span> Điều hòa mát lạnh</li>
+                  <li><span class="check">✓</span> Ánh sáng chuyên nghiệp</li>
+                  <li><span class="check">✓</span> Wifi miễn phí</li>
+                </ul>
+                <a class="btn btn-outline" href="#contact" style="width: 100%;">Đặt Ngay</a>
+              </div>
+            </article>
+
+            <article class="price-card featured" aria-label="Best Value">
+              <div class="price-header">
+                <span class="badge">★ Best Value</span>
+                <div class="price-title" style="margin-top: 12px;">Thẻ Hội Viên</div>
+                <p class="price-sub">Membership</p>
+                <p class="price-desc">Trải nghiệm VIP không giới hạn</p>
+              </div>
+              <div class="price-body">
+                <div class="price featured">2,500,000</div>
+                <div class="unit">VNĐ/tháng</div>
+                <div class="slot featured">♾️ Không giới hạn</div>
+                <ul class="features">
+                  <li><span class="check featured">✓</span> Chơi không giới hạn</li>
+                  <li><span class="check featured">✓</span> Ưu tiên đặt sân</li>
+                  <li><span class="check featured">✓</span> Giảm 20% F&amp;B</li>
+                  <li><span class="check featured">✓</span> Tham gia giải đấu miễn phí</li>
+                  <li><span class="check featured">✓</span> Cho mượn vợt premium</li>
+                  <li><span class="check featured">✓</span> Locker riêng</li>
+                </ul>
+                <a class="btn btn-primary" href="#contact" style="width: 100%;">Đăng Ký VIP</a>
+              </div>
+            </article>
+
+            <article class="price-card">
+              <div class="price-header">
+                <div class="price-title">Giờ Thường</div>
+                <p class="price-sub">Off-Peak Hours</p>
+                <p class="price-desc">Khung giờ linh hoạt, giá tốt nhất</p>
+              </div>
+              <div class="price-body">
+                <div class="price">120,000</div>
+                <div class="unit">VNĐ/giờ</div>
+                <div class="slot">🕒 06:00 - 17:00</div>
+                <ul class="features">
+                  <li><span class="check">✓</span> Sân chuẩn thi đấu</li>
+                  <li><span class="check">✓</span> Điều hòa mát lạnh</li>
+                  <li><span class="check">✓</span> Ánh sáng chuyên nghiệp</li>
+                  <li><span class="check">✓</span> Wifi miễn phí</li>
+                </ul>
+                <a class="btn btn-outline" href="#contact" style="width: 100%;">Đặt Ngay</a>
+              </div>
+            </article>
+          </div>
+
+          <p style="margin: 16px auto 0; color: rgba(229, 229, 229, 0.7); font-size: 12px; text-align: center;">
+            * Giá có thể thay đổi vào các ngày lễ, Tết. Liên hệ hotline để biết thêm chi tiết.
+          </p>
+        </div>
+      </section>
+
+      <!-- Footer / Contact -->
+      <footer class="footer" id="contact">
+        <div class="container">
+          <div class="footer-grid">
+            <section>
+              <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                <span class="brand-badge" aria-hidden="true" style="width: 48px; height: 48px; border-radius: 16px;">
+                  <svg viewBox="0 0 24 24" class="icon" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="8" cy="9" r="1.5" fill="currentColor"></circle>
+                    <circle cx="16" cy="9" r="1.5" fill="currentColor"></circle>
+                    <circle cx="12" cy="15" r="1.5" fill="currentColor"></circle>
+                  </svg>
+                </span>
+                <div>
+                  <div style="font-size: 22px; font-weight: 900;">SmashZone</div>
+                  <div style="font-size: 11px; color: var(--cyan); font-weight: 800;">PICKLEBALL COURT</div>
+                </div>
+              </div>
+              <p>
+                Sân Pickleball trong nhà đẳng cấp, mang đến trải nghiệm chơi bóng tuyệt vời trong không gian mát lạnh,
+                chuyên nghiệp.
+              </p>
+              <div style="display: flex; gap: 10px; margin-top: 14px;">
+                <a class="btn btn-outline" href="https://facebook.com/smashzone" target="_blank" rel="noopener noreferrer" style="padding: 10px 12px; border-radius: 14px;">Facebook</a>
+                <a class="btn btn-outline" href="https://instagram.com/smashzone" target="_blank" rel="noopener noreferrer" style="padding: 10px 12px; border-radius: 14px;">Instagram</a>
+              </div>
+            </section>
+
+            <section>
+              <h4>Liên Kết Nhanh</h4>
+              <ul>
+                <li><a href="/">Trang Chủ</a></li>
+                <li><a href="#pricing">Đặt Sân</a></li>
+                <li><a href="#pricing">Bảng Giá</a></li>
+                <li><a href="#contact">Liên Hệ</a></li>
+              </ul>
+            </section>
+
+            <section>
+              <h4>Chính Sách</h4>
+              <ul>
+                <li><a href="/policy/booking">Chính Sách Đặt Sân</a></li>
+                <li><a href="/policy/terms">Điều Khoản Sử Dụng</a></li>
+                <li><a href="/policy/privacy">Chính Sách Bảo Mật</a></li>
+                <li><a href="/policy/rules">Quy Định Sân Chơi</a></li>
+              </ul>
+            </section>
+
+            <section>
+              <h4>Liên Hệ</h4>
+              <ul>
+                <li><strong style="color: #fff;">Địa chỉ:</strong> 123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh</li>
+                <li><strong style="color: #fff;">Hotline:</strong> <a href="tel:1900xxxxxx">1900 xxxx xx</a></li>
+                <li><strong style="color: #fff;">Email:</strong> <a href="mailto:contact@smashzone.vn">contact@smashzone.vn</a></li>
+                <li><strong style="color: #fff;">Giờ mở cửa:</strong> 06:00 - 22:00 (Hàng ngày)</li>
+              </ul>
+              <div style="margin-top: 14px;">
+                <a class="btn btn-primary" href="tel:1900xxxxxx" style="width: 100%;">Gọi Đặt Sân</a>
+              </div>
+            </section>
+          </div>
+
+          <div class="map">
+            <div class="map-box">
+              <div class="map-content">
+                <div style="font-weight: 900; color: rgba(118, 215, 19, 0.95);">Google Map Placeholder</div>
+                <div style="margin-top: 6px; color: rgba(229, 229, 229, 0.76); font-size: 12px;">
+                  123 Đường ABC, Quận XYZ, TP.HCM
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-bar">
+          <div class="container">
+            <div class="bottom-row">
+              <div style="color: rgba(229, 229, 229, 0.7); font-size: 13px;">
+                © <span id="year"></span> SmashZone. All rights reserved.
+              </div>
+              <div style="color: rgba(229, 229, 229, 0.7); font-size: 13px;">
+                Made with <span style="color: var(--neon);">♥</span> for Pickleball lovers
+              </div>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- Sticky CTA (mobile) -->
+    <div class="sticky-cta" id="stickyCta" aria-label="Mobile sticky CTA">
+      <div class="container">
+        <div class="sticky-row">
+          <a class="btn btn-outline" href="tel:1900xxxxxx">Gọi Ngay</a>
+          <a class="btn btn-primary" href="#pricing">Đặt Sân</a>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var header = document.querySelector(".header");
+        var year = document.getElementById("year");
+        if (year) year.textContent = String(new Date().getFullYear());
+
+        var menuBtn = document.getElementById("menuBtn");
+        var overlay = document.getElementById("mobileOverlay");
+        var drawer = document.getElementById("mobileDrawer");
+
+        function setMenu(open) {
+          overlay.classList.toggle("is-open", open);
+          drawer.classList.toggle("is-open", open);
+          overlay.setAttribute("aria-hidden", open ? "false" : "true");
+        }
+
+        if (menuBtn && overlay && drawer) {
+          menuBtn.addEventListener("click", function () {
+            var open = !drawer.classList.contains("is-open");
+            setMenu(open);
+          });
+          overlay.addEventListener("click", function () {
+            setMenu(false);
+          });
+          drawer.addEventListener("click", function (e) {
+            var target = e.target;
+            if (target && target.matches && target.matches("[data-close]")) {
+              setMenu(false);
+            }
+          });
+        }
+
+        var sticky = document.getElementById("stickyCta");
+
+        function onScroll() {
+          var y = window.scrollY || 0;
+          if (header) header.classList.toggle("is-scrolled", y > 50);
+          if (sticky) {
+            var isMobile = window.matchMedia && window.matchMedia("(max-width: 767px)").matches;
+            var show = isMobile && y > 500;
+            sticky.style.display = show ? "block" : "none";
+          }
+        }
+
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        onScroll();
+      })();
+    </script>
+  </body>
+</html>
